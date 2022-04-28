@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Responsive Personal Portfolio Website Using HTML, CSS and JavaScript
+    </title>
+    <link rel="stylesheet" href="./style.css" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;1,200;1,300&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons&style=outlined"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/swiper@8/swiper-bundle.min.css"
+    />
+
+    <script src="https://use.fontawesome.com/6cbbdc1341.js"></script>
+  </head>
+  <body>
+    <nav>
+      <div class="container">
+        <a href="#">
+          <h3>Purposeful</h3>
+        </a>
+        <ul>
+          <li><a href="#" class="active">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#contact">Let's Talk</a></li>
+        </ul>
+
+        <button id="menu-btn"><span class="material-icons material-symbols-sharp">menu</span></button>
+        <button id="close-btn"><span class="material-icons material-symbols-sharp">close</span></button>
+      </div>
+    </nav>
+
+    <section class="landing">
+      <div class="container">
+        <div class="socials">
+          <a href="https://www.facebook.com/timor.rustamov/" target="_blank"
+            ><i class="uil uil-facebook-f"></i>
+          </a>
+          <a href="https://github.com/timorust" target="_blank"
+            ><i class="uil uil-github"></i>
+          </a>
+          <a
+            href="https://www.linkedin.com/in/timor-rustamov-b4240561/"
+            target="_blank"
+            ><i class="uil uil-linkedin"></i>
+          </a>
+          <a href="https://codepen.io/timorust" target="_blank"
+            ><i class="fa fa-codepen"></i>
+          </a>
+        </div>
+        <div class="info">
+          <h1>Full Stack Developer</h1>
+          <h3>hi I'am Timor Rustamov</h3>
+          <p>
+            Academic, Graduate of Full Stack Developer and Programming Course.
+          </p>
+          <a href="#contact" class="btn btn-primary">Let's Talk</a>
+        </div>
+        <div class="profile-area">
+          <div class="outer-circle">
+            <span class="material-icons material-icons-sharp">
+              design_services
+            </span>
+            <span class="material-icons material-icons-sharp">dns</span>
+            <span class="material-icons material-icons-sharp">code</span>
+            <span class="material-icons material-icons-sharp"
+              >integration_instructions</span
+            >
+          </div>
+
+          <div class="inner-circle">
+            <img src="./img/profile.jpg" alt="profile" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="about" id="about">
+      <h1>About</h1>
+
+      <div class="container">
+        <div class="image">
+          <img src="./img/profile-about.jpg" alt="profile-about" />
+        </div>
+
+        <div class="info">
+          <p>
+            Academic, Graduate of Full Stack Developer and Programming Course.
+            Extensive experience in Management, Transportation, Development and
+            Service in the world of Medicine. Autodidact, thorough, creative and
+            proactive.
+          </p>
+
+          <p>
+            Excellent interpersonal skills. Ability to work independently as
+            well as in a team. Interested to initiate as Junior Software
+            Developer. Great motivation to learn and develop.
+          </p>
+          <div class="read-more-content">
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos
+              quibusdam id aliquam ipsa laboriosam. Quam ex dolores veniam aut,
+              consequatur nostrum vero, sunt laboriosam vel corrupti officia
+              necessitatibus, accusantium obcaecati dolorum sequi quidem quia
+              deserunt. Minus, voluptatum ullam velit id earum, labore in quos
+              eligendi ipsam maiores facere illum autem magnam quidem expedita.
+              Molestiae, debitis aliquid fugit magni veritatis aspernatur culpa
+              quidem accusamus sint voluptatem nam. Ea voluptatum debitis et
+              inventore, ipsam blanditiis corporis saepe repudiandae consequatur
+              earum beatae eius nobis quia laborum incidunt facere eligendi at
+              amet. Voluptatem quia unde eius, nulla eaque ratione ut numquam
+              provident? Fuga, maiores.
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus
+              ipsa corrupti dicta dolor aliquid dolore asperiores molestiae.
+              Officiis minus corrupti, eum natus iure quibusdam. Repudiandae
+              repellendus nesciunt explicabo temporibus distinctio!
+            </p>
+          </div>
+          <a class="read-more">Show more</a>
+          <a href="./img/cv.pdf" download class="btn btn-primary"
+            ><i class="uil uil-download-alt"></i>Download CV</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <section class="skills" id="skills">
+      <h1>Skills</h1>
+      <div class="container">
+        <div class="skill">
+          <div class="head">
+            <div class="left">
+              <span class="material-icons material-icons-sharp">code</span>
+              <h4>Frontend Development</h4>
+            </div>
+
+            <span class="material-icons material-symbols-sharp"
+              >expand_more</span
+            >
+          </div>
+
+          <div class="items">
+            <div class="item">
+              <h5>HTML</h5>
+              <div class="progress-area">
+                <div class="progress-bar">
+                  <div class="progress"></div>
+                </div>
+                <h5>95%</h5>
+              </div>
+            </div>
+            <div class="item">
+              <h5>CSS</h5>
+              <div class="progress-area">
+                <div class="progress-bar">
+                  <div class="progress"></div>
+                </div>
+                <h5>88%</h5>
+              </div>
+            </div>
+            <div class="item">
+              <h5>Sass</h5>
+              <div class="progress-area">
+                <div class="progress-bar">
+                  <div class="progress"></div>
+                </div>
+                <h5>75%</h5>
+              </div>
+            </div>
+            <div class="item">
+              <h5>Bootstrap</h5>
+              <div class="progress-area">
+                <div class="progress-bar">
+                  <div class="progress"></div>
+                </div>
+                <h5>85%</h5>
+              </div>
+            </div>
+
+            <div class="item">
+              <h5>JavaScript</h5>
+              <div class="progress-area">
+                <div class="progress-bar">
+                  <div class="progress"></div>
+                </div>
+                <h5>84%</h5>
+              </div>
+            </div>
+
+            <div class="item">
+              <h5>React</h5>
+              <div class="progress-area">
+                <div class="progress-bar">
+                  <div class="progress"></div>
+                </div>
+                <h5>72%</h5>
+              </div>
+            </div>
+
+            <div class="item">
+              <h5>Angular</h5>
+              <div class="progress-area">
+                <div class="progress-bar">
+                  <div class="progress"></div>
+                </div>
+                <h5>91%</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="skill">
+          <div class="head">
+            <div class="left">
+              <span class="material-icons material-icons-sharp">dns</span>
+              <h4>backend Development</h4>
+            </div>
+
+            <span class="material-icons material-symbols-sharp"
+              >expand_more</span
+            >
+          </div>
+
+          <div class="items">
+            <div class="item">
+              <h5>PHP</h5>
+              <div class="progress-area">
+                <div class="progress-bar">
+                  <div class="progress"></div>
+                </div>
+                <h5>91%</h5>
+              </div>
+            </div>
+            <div class="item">
+              <h5>Python</h5>
+              <div class="progress-area">
+                <div class="progress-bar">
+                  <div class="progress"></div>
+                </div>
+                <h5>80%</h5>
+              </div>
+            </div>
+            <div class="item">
+              <h5>Node</h5>
+              <div class="progress-area">
+                <div class="progress-bar">
+                  <div class="progress"></div>
+                </div>
+                <h5>93%</h5>
+              </div>
+            </div>
+            <div class="item">
+              <h5>Mongo DB</h5>
+              <div class="progress-area">
+                <div class="progress-bar">
+                  <div class="progress"></div>
+                </div>
+                <h5>77%</h5>
+              </div>
+            </div>
+
+            <div class="item">
+              <h5>MyQSL</h5>
+              <div class="progress-area">
+                <div class="progress-bar">
+                  <div class="progress"></div>
+                </div>
+                <h5>95%</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="skill">
+          <div class="head">
+            <div class="left">
+              <span class="material-icons material-symbols-sharp"> web </span>
+              <h4>CMS</h4>
+            </div>
+
+            <span class="material-icons material-symbols-sharp"
+              >expand_more</span
+            >
+          </div>
+
+          <div class="items">
+            <div class="item">
+              <h5>Wordpress</h5>
+              <div class="progress-area">
+                <div class="progress-bar">
+                  <div class="progress"></div>
+                </div>
+                <h5>83%</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="services" id="services">
+      <h1>Services</h1>
+      <div class="container">
+        <div class="service">
+          <span class="material-icons material-symbols-sharp">
+            design_services
+          </span>
+          <h3>UI/UX Design</h3>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt
+            asperiores aliquam facilis saepe, praesentium cupiditate dolorem
+            alias. Nemo nostrum, error expedita adipisci dolorum magni amet,
+            odit molestias eos explicabo sit?
+          </p>
+        </div>
+
+        <div class="service">
+          <span class="material-icons material-icons-sharp"> language </span>
+          <h3>Website & Wep apps Development</h3>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt
+            asperiores aliquam facilis saepe, praesentium cupiditate dolorem
+            alias. Nemo nostrum, error expedita adipisci dolorum magni amet,
+            odit molestias eos explicabo sit?
+          </p>
+        </div>
+
+        <div class="service">
+          <span class="material-icons material-icons-sharp"> devices </span>
+          <h3>Mobile Development</h3>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt
+            asperiores aliquam facilis saepe, praesentium cupiditate dolorem
+            alias. Nemo nostrum, error expedita adipisci dolorum magni amet,
+            odit molestias eos explicabo sit?
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="recent-work" id="portfolio">
+      <div class="container">
+        <h4>My Recent Work</h4>
+        <h1>Here Are Some Of My Most Recent Solo Projects</h1>
+
+        <div class="projects">
+          <div class="project">
+            <div class="thubmnail">
+              <img src="./img/work1.jpg" alt="work1" />
+            </div>
+            <h2>Complete Responsive E-Commerce Website with Stripe Checkout</h2>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus
+              dolore vitae similique sint adipisci fugit, sed natus beatae
+              commodi inventore illo minus? Expedita, voluptate? Delectus dicta
+              quos ut blanditiis! Magni.
+            </p>
+
+            <div class="action">
+              <a href="https://github.com" target="_blank">Github</a>
+              <a href="https://timorust.github.io/angular-blog/" target="_blank"
+                >Live Demo</a
+              >
+            </div>
+          </div>
+
+          <div class="project">
+            <div class="thubmnail">
+              <img src="./img/work2.jpg" alt="work2" />
+            </div>
+            <h2>Altcoin Exchange & Investment Website</h2>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus
+              dolore vitae similique sint adipisci fugit, sed natus beatae
+              commodi inventore illo minus? Expedita, voluptate? Delectus dicta
+              quos ut blanditiis! Magni.
+            </p>
+
+            <div class="action">
+              <a href="https://github.com" target="_blank">Github</a>
+              <a href="https://timorust.github.io/angular-blog/" target="_blank"
+                >Live Demo</a
+              >
+            </div>
+          </div>
+
+          <div class="project">
+            <div class="thubmnail">
+              <img src="./img/work2.jpg" alt="work2" />
+            </div>
+            <h2>Altcoin Exchange & Investment Website</h2>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus
+              dolore vitae similique sint adipisci fugit, sed natus beatae
+              commodi inventore illo minus? Expedita, voluptate? Delectus dicta
+              quos ut blanditiis! Magni.
+            </p>
+
+            <div class="action">
+              <a href="https://github.com" target="_blank">Github</a>
+              <a href="https://timorust.github.io/angular-blog/" target="_blank"
+                >Live Demo</a
+              >
+            </div>
+          </div>
+
+          <div class="project">
+            <div class="thubmnail">
+              <img src="./img/work2.jpg" alt="work2" />
+            </div>
+            <h2>Altcoin Exchange & Investment Website</h2>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus
+              dolore vitae similique sint adipisci fugit, sed natus beatae
+              commodi inventore illo minus? Expedita, voluptate? Delectus dicta
+              quos ut blanditiis! Magni.
+            </p>
+
+            <div class="action">
+              <a href="https://github.com" target="_blank">Github</a>
+              <a href="https://timorust.github.io/angular-blog/" target="_blank"
+                >Live Demo</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="testimonials">
+      <h1>Testimonials</h1>
+      <div class="container swiper">
+        <div class="carousel swiper-wrapper">
+          <div class="testimonial swiper-slide">
+            <div class="head">
+              <div class="profile-area">
+                <div class="avatar">
+                  <img src="./img/avatar1.jpg" />
+                </div>
+
+                <div class="info">
+                  <h4>Maria Shpitz</h4>
+                  <small>Civil Engineer (soviel.com)</small>
+                </div>
+              </div>
+              <div class="stars">
+                <span class="material-icons material-icons-sharp">
+                  star_rate
+                </span>
+                <span class="material-icons material-icons-sharp">
+                  star_rate
+                </span>
+                <span class="material-icons material-icons-sharp">
+                  star_rate
+                </span>
+                <span class="material-icons material-icons-sharp">
+                  star_rate
+                </span>
+                <span class="material-icons material-icons-sharp">
+                  star_rate
+                </span>
+              </div>
+            </div>
+
+            <p>
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor
+              nobis in architecto ex. Vitae accusantium a sunt dolor incidunt
+              sit?
+            </p>
+          </div>
+
+          <div class="testimonial swiper-slide">
+            <div class="head">
+              <div class="profile-area">
+                <div class="avatar">
+                  <img src="./img/avatar2.jpg" />
+                </div>
+
+                <div class="info">
+                  <h4>Aya Skill</h4>
+                  <small>Team Lead (soviel.com)</small>
+                </div>
+              </div>
+              <div class="stars">
+                <span class="material-icons material-icons-sharp">
+                  star_rate
+                </span>
+                <span class="material-icons material-icons-sharp">
+                  star_rate
+                </span>
+                <span class="material-icons material-icons-sharp">
+                  star_rate
+                </span>
+                <span class="material-icons material-icons-sharp">
+                  star_rate
+                </span>
+                <span class="material-icons material-icons-sharp">
+                  star_rate
+                </span>
+              </div>
+            </div>
+
+            <p>
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor
+              nobis in architecto ex. Vitae accusantium a sunt dolor incidunt
+              sit?
+            </p>
+          </div>
+
+          <div class="testimonial swiper-slide">
+            <div class="head">
+              <div class="profile-area">
+                <div class="avatar">
+                  <img src="./img/avatar3.jpg" />
+                </div>
+
+                <div class="info">
+                  <h4>Freida Feel</h4>
+                  <small>Team Lead (soviel.com)</small>
+                </div>
+              </div>
+              <div class="stars">
+                <span class="material-icons material-icons-sharp">
+                  star_rate
+                </span>
+                <span class="material-icons material-icons-sharp">
+                  star_rate
+                </span>
+                <span class="material-icons material-icons-sharp">
+                  star_rate
+                </span>
+                <span class="material-icons material-icons-sharp">
+                  star_rate
+                </span>
+                <span class="material-icons material-icons-sharp">
+                  star_rate
+                </span>
+              </div>
+            </div>
+
+            <p>
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor
+              nobis in architecto ex. Vitae accusantium a sunt dolor incidunt
+              sit?
+            </p>
+          </div>
+
+          <div class="testimonial swiper-slide">
+            <div class="head">
+              <div class="profile-area">
+                <div class="avatar">
+                  <img src="./img/avatar4.jpg" />
+                </div>
+
+                <div class="info">
+                  <h4>Sany Bill</h4>
+                  <small>Team Lead (soviel.com)</small>
+                </div>
+              </div>
+              <div class="stars">
+                <span class="material-icons material-icons-sharp">
+                  star_rate
+                </span>
+                <span class="material-icons material-icons-sharp">
+                  star_rate
+                </span>
+                <span class="material-icons material-icons-sharp">
+                  star_rate
+                </span>
+                <span class="material-icons material-icons-sharp">
+                  star_rate
+                </span>
+                <span class="material-icons material-icons-sharp">
+                  star_rate
+                </span>
+              </div>
+            </div>
+
+            <p>
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor
+              nobis in architecto ex. Vitae accusantium a sunt dolor incidunt
+              sit?
+            </p>
+          </div>
+        </div>
+		  <div class="swiper-scrollbar">
+			  <div class="swiper-scrollbar-drag"></div>
+		  </div>
+      </div>
+    </section>
+
+	 <section class="contact" id="contact">
+		 <div class="overlay">
+			 <div class="container">
+				 <h1>Let's Talk</h1>
+				 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem suscipit maiores incidunt vel magnam ut!</p>
+				 <form action="https://formspree.io/f/xoqrpdrp" method="POST">
+					 <input type="text" name="Name" placeholder="Name" required>
+					 <input type="email" name="Email" placeholder="Email" required>
+					 <input type="text" name="Subject" placeholder="Subject" required>
+					 <textarea name="Message" placeholder="Message" required></textarea>
+					 <input type="submit" value="Submit" class="btn btn-primary">
+				 </form>
+			 </div>
+		 </div>
+	 </section>
+
+
+
+	 <footer>
+		 <div class="container">
+			<a href="#"><h3>Purposeful</h3></a>
+			<ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#contact">Let's Talk</a></li>
+        </ul>
+		  <div class="socials">
+          <a href="https://www.facebook.com/timor.rustamov/" target="_blank"
+            ><i class="uil uil-facebook-f"></i>
+          </a>
+          <a href="https://github.com/timorust" target="_blank"
+            ><i class="uil uil-github"></i>
+          </a>
+          <a
+            href="https://www.linkedin.com/in/timor-rustamov-b4240561/"
+            target="_blank"
+            ><i class="uil uil-linkedin"></i>
+          </a>
+          <a href="https://codepen.io/timorust" target="_blank"
+            ><i class="fa fa-codepen"></i>
+          </a>
+        </div>
+		 </div>
+
+		 <div class="copyright">
+			Copyright &copy; TIMORUST	
+		 </div>
+	 </footer>
+
+
+
+    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+    <script src="./main.js"></script>
+  </body>
+</html>
