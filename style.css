@@ -101,6 +101,9 @@ img {
   margin: 2rem 0;
   transition: var(--transition);
 }
+.btn:hover {
+	box-shadow: 0 0.6rem 1rem var(--color-primary-light);
+}
 
 .btn-primary {
   background: var(--color-primary);
