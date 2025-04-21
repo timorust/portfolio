@@ -82,5 +82,6 @@ async function loadHTML(id, file, scriptFile = null) {
 
 
 loadHTML('testimonials', 'testimonials.html', 'testimonials.js')
+loadHTML('skills', 'skills.html', 'skills.js')
 loadHTML('footer', 'footer.html')
 loadHTML('contact', 'contact.html')
