@@ -75,3 +75,4 @@ async function loadHTML(id, file) {
 
 loadHTML('footer', 'footer.html')
 loadHTML('contact', 'contact.html')
+loadHTML('testimonials', 'testimonials.html')
