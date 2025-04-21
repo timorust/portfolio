@@ -473,7 +473,7 @@ section.skills .item .progress-bar .progress {
 	transform: scale(1.2);
 	transition: transform var(--transitionTime);
 }
-.aws-icon:hover {
+.aws_icon:hover {
 	color: #fb61c0;
 	transform: scale(1.2);
 	transition: transform var(--transitionTime);
