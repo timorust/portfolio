@@ -6,7 +6,7 @@ pipeline {
   stages {
     stage('Clone Repo') {
       steps {
-        git 'https://github.com/timorust/portfolio-'
+        git 'https://github.com/timorust/portfolio.git'
       }
     }
     stage('Build Docker Image') {
