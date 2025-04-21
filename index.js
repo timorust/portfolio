@@ -1,10 +1,3 @@
-// const swiper = new Swiper(".swiper", {
-//   scrollbar: {
-//     el: ".swiper-scrollbar",
-//     draggable: true,
-//   },
-// })
-
 const menuBtn = document.getElementById("menu-btn")
 const closeBtn = document.getElementById("close-btn")
 const menu = document.querySelector("nav .container ul")
@@ -77,3 +70,4 @@ loadHTML('testimonials', 'testimonials.html', 'testimonials.js')
 loadHTML('skills', 'skills.html', 'skills.js')
 loadHTML('footer', 'footer.html')
 loadHTML('contact', 'contact.html')
+loadHTML('portfolio', 'portfolio.html')
