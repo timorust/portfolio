@@ -1,9 +1,9 @@
-const swiper = new Swiper(".swiper", {
-  scrollbar: {
-    el: ".swiper-scrollbar",
-    draggable: true,
-  },
-})
+// const swiper = new Swiper(".swiper", {
+//   scrollbar: {
+//     el: ".swiper-scrollbar",
+//     draggable: true,
+//   },
+// })
 
 const menuBtn = document.getElementById("menu-btn")
 const closeBtn = document.getElementById("close-btn")
@@ -67,12 +67,20 @@ window.addEventListener("scroll", () => {
     .classList.toggle("show-box-shadow", window.scrollY > 0)
 })
 
-async function loadHTML(id, file) {
+async function loadHTML(id, file, scriptFile = null) {
   const response = await fetch(file)
   const html = await response.text()
   document.getElementById(id).innerHTML = html
+
+  if (scriptFile) {
+    const script = document.createElement('script')
+    script.src = scriptFile
+    script.type = 'text/javascript'
+    document.body.appendChild(script)
+  }
 }
 
+
+loadHTML('testimonials', 'testimonials.html', 'testimonials.js')
 loadHTML('footer', 'footer.html')
 loadHTML('contact', 'contact.html')
-loadHTML('testimonials', 'testimonials.html')
