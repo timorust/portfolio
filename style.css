@@ -473,11 +473,6 @@ section.skills .item .progress-bar .progress {
 	transform: scale(1.2);
 	transition: transform var(--transitionTime);
 }
-.aws_icon:hover {
-	color: #fb61c0;
-	transform: scale(1.2);
-	transition: transform var(--transitionTime);
-}
 
 .node_icon:hover {
 	color: #66cc33;
@@ -492,6 +487,7 @@ section.skills .item .progress-bar .progress {
 }
 
 .css_icon:hover,
+.aws_icon:hover,
 .mongo_icon:hover {
 	color: #dd2d4a;
 	transform: scale(1.2);
