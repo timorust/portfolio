@@ -1,0 +1,8 @@
+---
+- name: Pull latest Docker image of my app
+  shell: docker pull timor1/portfolio:latest
+
+- name: Run the container
+  shell: |
+    docker rm -f portfolio || true
+    docker run -d --name portfolio -p 80:80 timor1/portfolio:latest

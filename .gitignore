@@ -1,0 +1,35 @@
+# Ignore node_modules
+node_modules/
+
+# Ignore Docker
+.docker/
+
+# Ignore system configuration files
+.DS_Store
+Thumbs.db
+
+# Ignore Ansible config and k8s configuration
+ansible/.vagrant/
+ansible/hosts.ini
+
+# Ignore compiler files
+*.log
+*.bak
+
+# Ignore Visual Studio Code files
+.vscode/
+
+# Ignore Kubernetes Manifests for Development
+k8s/*.yaml
+
+# Ignore sensitive files
+*.pem
+*.key
+*.env
+
+# Ignore Terraform files
+.terraform/
+
+# Ignore temporary OS files
+*.swp
+*.swo
