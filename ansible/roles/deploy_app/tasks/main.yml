@@ -1,8 +1,19 @@
 ---
-- name: Pull latest Docker image of my app
-  shell: docker pull timor1/portfolio:latest
+- name: Create namespace
+  kubernetes.core.k8s:
+    api_version: v1
+    kind: Namespace
+    name: portfolio
+    state: present
 
-- name: Run the container
-  shell: |
-    docker rm -f portfolio || true
-    docker run -d --name portfolio -p 80:80 timor1/portfolio:latest
+- name: Deploy Portfolio app to K3s
+  kubernetes.core.k8s:
+    state: present
+    namespace: portfolio
+    src: "{{ playbook_dir }}/../../k8s/deployment.yaml"
+
+- name: Expose service
+  kubernetes.core.k8s:
+    state: present
+    namespace: portfolio
+    src: "{{ playbook_dir }}/../../k8s/service.yaml"
