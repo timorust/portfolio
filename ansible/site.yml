@@ -1,5 +1,7 @@
-- hosts: servers
-  become: true
+---
+- name: Deploy Portfolio Project with Docker, K3s and Ansible
+  hosts: servers
+  become: true  
   roles:
     - docker
     - k3s
