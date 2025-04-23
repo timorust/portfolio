@@ -10,6 +10,12 @@ pipeline {
       }
     }
 
+    stage('Run Ansible Playbook') {
+            steps {
+                sh 'ansible-playbook -i ansible/inventory.ini ansible/site.yml'
+            }
+        }
+
     stage('Build Docker Image') {
       steps {
         sh 'docker build -t $IMAGE_NAME:$BUILD_NUMBER .'
