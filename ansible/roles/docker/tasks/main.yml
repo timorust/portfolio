@@ -1,7 +1,28 @@
----
-- name: Install Docker
+- name: Install dependencies
   apt:
-    name: docker.io
+    name: ['apt-transport-https', 'ca-certificates', 'curl', 'software-properties-common', 'gnupg']
+    state: present
+    update_cache: yes
+
+- name: Add Docker’s official GPG key
+  ansible.builtin.shell: |
+    install -m 0755 -d /etc/apt/keyrings
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+    chmod a+r /etc/apt/keyrings/docker.gpg
+  args:
+    creates: /etc/apt/keyrings/docker.gpg
+
+- name: Set up the Docker repository
+  ansible.builtin.shell: |
+    echo \
+    "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+    $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+  args:
+    creates: /etc/apt/sources.list.d/docker.list
+
+- name: Update apt and install Docker
+  apt:
+    name: docker-ce
     state: present
     update_cache: yes
 

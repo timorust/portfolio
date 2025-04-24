@@ -1,0 +1,14 @@
+- name: Deploy monitoring to K3s
+  hosts: localhost
+  become: yes
+
+  tasks:
+    - name: Test kubectl connectivity
+      ansible.builtin.command: kubectl get nodes
+      environment:
+        KUBECONFIG: "/final/portfolio/kubeconfig.yaml"
+      register: kubectl_output
+
+    - name: Print output
+      ansible.builtin.debug:
+        var: kubectl_output.stdout_lines
