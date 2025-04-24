@@ -1,8 +1,11 @@
 pipeline {
   agent any
+
   environment {
     IMAGE_NAME = "timor1/portfolio"
+    VENV_PATH = "${HOME}/.ansible-venv"
   }
+
   stages {
     stage('Clone Repo') {
       steps {
@@ -10,11 +13,20 @@ pipeline {
       }
     }
 
-    stage('Run Ansible Playbook') {
-            steps {
-                sh 'ansible-playbook -i ansible/inventory.ini ansible/site.yml'
-            }
-        }
+    stage('Setup Python Virtualenv and Run Ansible') {
+      steps {
+        sh '''
+          if [ ! -d "$VENV_PATH" ]; then
+            python3 -m venv $VENV_PATH
+            source $VENV_PATH/bin/activate
+            pip install --upgrade pip
+            pip install kubernetes
+          fi
+          source $VENV_PATH/bin/activate
+          ansible-playbook -i ansible/inventory.ini ansible/site.yml
+        '''
+      }
+    }
 
     stage('Build Docker Image') {
       steps {
@@ -25,8 +37,10 @@ pipeline {
     stage('Push to Docker Hub') {
       steps {
         withCredentials([usernamePassword(credentialsId: 'docker_hub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-          sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
-          sh 'docker push $IMAGE_NAME:$BUILD_NUMBER'
+          sh '''
+            echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+            docker push $IMAGE_NAME:$BUILD_NUMBER
+          '''
         }
       }
     }
