@@ -13,20 +13,20 @@ pipeline {
       }
     }
 
-    stage('Setup Python Virtualenv and Run Ansible') {
-      steps {
-        sh '''
-          if [ ! -d "$VENV_PATH" ]; then
-            python3 -m venv $VENV_PATH
-            source $VENV_PATH/bin/activate
-            pip install --upgrade pip
-            pip install kubernetes
-          fi
-          source $VENV_PATH/bin/activate
-          ansible-playbook -i ansible/inventory.ini ansible/site.yml
-        '''
-      }
-    }
+    stage('Run Ansible Playbook') {
+  steps {
+    sh '''
+      if [ ! -d /var/lib/jenkins/.ansible-venv ]; then
+        python3 -m venv /var/lib/jenkins/.ansible-venv
+        /var/lib/jenkins/.ansible-venv/bin/pip install --upgrade pip
+        /var/lib/jenkins/.ansible-venv/bin/pip install ansible
+      fi
+
+      /var/lib/jenkins/.ansible-venv/bin/ansible-playbook -i ansible/inventory.ini ansible/site.yml
+    '''
+  }
+}
+
 
     stage('Build Docker Image') {
       steps {
