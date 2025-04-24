@@ -15,43 +15,50 @@ pipeline {
 
     stage('Run Ansible Playbook') {
       steps {
-        sh '''
-          VENV_PATH="/var/lib/jenkins/.ansible-venv"
-
-          if [ ! -d "$VENV_PATH" ]; then
+        script {
+          // Create virtual environment if it doesn't exist
+          if (!fileExists(VENV_PATH)) {
             echo "🔧 Creating virtual environment..."
-            python3 -m venv "$VENV_PATH" || exit 1
-            "$VENV_PATH/bin/pip" install --upgrade pip || exit 1
-            "$VENV_PATH/bin/pip" install ansible || exit 1
-          fi
+            sh "python3 -m venv ${VENV_PATH}"
+            sh "${VENV_PATH}/bin/pip install --upgrade pip"
+            sh "${VENV_PATH}/bin/pip install ansible"
+          } else {
+            echo "✅ Virtual environment already exists"
+          }
 
+          // Run the ansible playbook
           echo "🚀 Running Ansible playbook..."
-          "$VENV_PATH/bin/ansible-playbook" -i ansible/inventory.ini ansible/site.yml
-        '''
+          sh "${VENV_PATH}/bin/ansible-playbook -i ansible/inventory.ini ansible/site.yml"
+        }
       }
     }
 
-
     stage('Build Docker Image') {
       steps {
-        sh 'docker build -t $IMAGE_NAME:$BUILD_NUMBER .'
+        script {
+          sh "docker build -t ${IMAGE_NAME}:${BUILD_NUMBER} ."
+        }
       }
     }
 
     stage('Push to Docker Hub') {
       steps {
         withCredentials([usernamePassword(credentialsId: 'docker_hub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-          sh '''
-            echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
-            docker push $IMAGE_NAME:$BUILD_NUMBER
-          '''
+          script {
+            sh '''
+              echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+              docker push $IMAGE_NAME:$BUILD_NUMBER
+            '''
+          }
         }
       }
     }
 
     stage('Deploy to Kubernetes') {
       steps {
-        sh 'kubectl set image deployment/portfolio-deployment portfolio=$IMAGE_NAME:$BUILD_NUMBER --record'
+        script {
+          sh "kubectl set image deployment/portfolio-deployment portfolio=$IMAGE_NAME:$BUILD_NUMBER --record"
+        }
       }
     }
   }
