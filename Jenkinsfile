@@ -26,6 +26,9 @@ pipeline {
             echo "✅ Virtual environment already exists"
           }
 
+          // Make sure ansible-playbook exists in the venv
+          sh "ls ${VENV_PATH}/bin/ansible-playbook"
+          
           // Run the ansible playbook
           echo "🚀 Running Ansible playbook..."
           sh "${VENV_PATH}/bin/ansible-playbook -i ansible/inventory.ini ansible/site.yml"
