@@ -3,7 +3,7 @@ pipeline {
 
   environment {
     IMAGE_NAME = "timor1/portfolio"
-    VENV_PATH = "${HOME}/.ansible-venv"
+    VENV_PATH = "/var/lib/jenkins/.ansible-venv"
   }
 
   stages {
@@ -14,19 +14,18 @@ pipeline {
     }
 
     stage('Run Ansible Playbook') {
-  steps {
-    sh '''
-      if [ ! -d /var/lib/jenkins/.ansible-venv ]; then
-        python3 -m venv /var/lib/jenkins/.ansible-venv
-        /var/lib/jenkins/.ansible-venv/bin/pip install --upgrade pip
-        /var/lib/jenkins/.ansible-venv/bin/pip install ansible
-      fi
+      steps {
+        sh '''
+          if [ ! -d "$VENV_PATH" ]; then
+            python3 -m venv "$VENV_PATH"
+            "$VENV_PATH/bin/pip" install --upgrade pip
+            "$VENV_PATH/bin/pip" install ansible
+          fi
 
-      /var/lib/jenkins/.ansible-venv/bin/ansible-playbook -i ansible/inventory.ini ansible/site.yml
-    '''
-  }
-}
-
+          "$VENV_PATH/bin/ansible-playbook" -i ansible/inventory.ini ansible/site.yml
+        '''
+      }
+    }
 
     stage('Build Docker Image') {
       steps {
@@ -49,6 +48,18 @@ pipeline {
       steps {
         sh 'kubectl set image deployment/portfolio-deployment portfolio=$IMAGE_NAME:$BUILD_NUMBER --record'
       }
+    }
+  }
+
+  post {
+    success {
+      echo "✅ Pipeline succeeded! Deployed version $BUILD_NUMBER to Kubernetes."
+    }
+    failure {
+      echo "❌ Pipeline failed. Check logs for details."
+    }
+    always {
+      echo "📋 Pipeline finished (success or fail)."
     }
   }
 }
