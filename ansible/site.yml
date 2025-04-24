@@ -1,7 +1,9 @@
 ---
 - name: Deploy Portfolio Project with Docker, K3s and Ansible
   hosts: servers
-  become: true  
+  become: true
+  vars:
+    ansible_python_interpreter: /var/lib/jenkins/.ansible-venv/bin/python
   roles:
     - docker
     - k3s
