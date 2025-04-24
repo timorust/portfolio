@@ -16,16 +16,21 @@ pipeline {
     stage('Run Ansible Playbook') {
       steps {
         sh '''
+          VENV_PATH="/var/lib/jenkins/.ansible-venv"
+
           if [ ! -d "$VENV_PATH" ]; then
-            python3 -m venv "$VENV_PATH"
-            "$VENV_PATH/bin/pip" install --upgrade pip
-            "$VENV_PATH/bin/pip" install ansible
+            echo "🔧 Creating virtual environment..."
+            python3 -m venv "$VENV_PATH" || exit 1
+            "$VENV_PATH/bin/pip" install --upgrade pip || exit 1
+            "$VENV_PATH/bin/pip" install ansible || exit 1
           fi
 
+          echo "🚀 Running Ansible playbook..."
           "$VENV_PATH/bin/ansible-playbook" -i ansible/inventory.ini ansible/site.yml
         '''
       }
     }
+
 
     stage('Build Docker Image') {
       steps {
