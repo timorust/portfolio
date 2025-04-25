@@ -1,19 +1,27 @@
 ---
-- name: Create namespace
-  kubernetes.core.k8s:
-    api_version: v1
-    kind: Namespace
-    name: portfolio
-    state: present
+- name: "Deploy Portfolio Project with Docker, K3s, and Ansible"
+  hosts: localhost
+  become: true
+  vars:
+    ansible_python_interpreter: /var/lib/jenkins/.ansible-venv/bin/python
+  tasks:
+    - block:
+        - name: Create namespace
+          kubernetes.core.k8s:
+            api_version: v1
+            kind: Namespace
+            metadata:
+              name: portfolio
+            state: present
 
-- name: Deploy Portfolio app to K3s
-  k8s:
-    kubeconfig: /path/to/kubeconfig
-    state: present
-    definition: /final/portfolio/ansible/k8s/deployment.yaml
+        - name: Deploy Portfolio app to K3s
+          kubernetes.core.k8s:
+            kubeconfig: /var/lib/jenkins/.kube/config
+            state: present
+            definition: "{{ playbook_dir }}/../../k8s/deployment.yaml"
 
-- name: Expose service
-  kubernetes.core.k8s:
-    state: present
-    namespace: portfolio
-    src: "{{ playbook_dir }}/../../k8s/service.yaml"
+        - name: Expose service
+          kubernetes.core.k8s:
+            state: present
+            namespace: portfolio
+            src: "{{ playbook_dir }}/../../k8s/service.yaml"
