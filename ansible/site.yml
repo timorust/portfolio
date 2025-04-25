@@ -2,7 +2,7 @@
   hosts: localhost
   tasks:
     - name: Create namespace
-      community.kubernetes.kubernetes_namespace:
+      k8s_namespace:
         name: portfolio
         state: present
 
