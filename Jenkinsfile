@@ -38,7 +38,6 @@ pipeline {
       }
     }
 
-
     stage('Build Docker Image') {
       steps {
         script {
@@ -63,7 +62,9 @@ pipeline {
     stage('Deploy to Kubernetes') {
       steps {
         script {
-          sh "kubectl set image deployment/portfolio-deployment portfolio=$IMAGE_NAME:$BUILD_NUMBER --record"
+          withEnv(["KUBECONFIG=/home/jenkins/.kube/config"]) {  // Here we add the KUBECONFIG for kubectl
+            sh "kubectl set image deployment/portfolio-deployment portfolio=$IMAGE_NAME:$BUILD_NUMBER --record"
+          }
         }
       }
     }
