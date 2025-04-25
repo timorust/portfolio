@@ -8,33 +8,33 @@ pipeline {
 
   stages {
 
-    stage('Run Ansible Playbook') {
-      steps {
-        script {
-          echo "🔍 Checking virtual environment..."
-          if (!fileExists(VENV_PATH)) {
-            echo "🔧 Creating virtual environment..."
-            sh "python3 -m venv ${VENV_PATH}"
-            sh "${VENV_PATH}/bin/pip install --upgrade pip"
-            sh "${VENV_PATH}/bin/pip install ansible"
-          } else {
-            echo "✅ Virtual environment already exists"
-          }
+    // stage('Run Ansible Playbook') {
+    //   steps {
+    //     script {
+    //       echo "🔍 Checking virtual environment..."
+    //       if (!fileExists(VENV_PATH)) {
+    //         echo "🔧 Creating virtual environment..."
+    //         sh "python3 -m venv ${VENV_PATH}"
+    //         sh "${VENV_PATH}/bin/pip install --upgrade pip"
+    //         sh "${VENV_PATH}/bin/pip install ansible"
+    //       } else {
+    //         echo "✅ Virtual environment already exists"
+    //       }
 
-          // התקנת הקולקשן של Kubernetes (גם אם ה־venv קיים)
-          echo "📦 Installing Ansible Kubernetes collection..."
-          sh "${VENV_PATH}/bin/ansible-galaxy collection install community.kubernetes"
+    //       // התקנת הקולקשן של Kubernetes (גם אם ה־venv קיים)
+    //       echo "📦 Installing Ansible Kubernetes collection..."
+    //       sh "${VENV_PATH}/bin/ansible-galaxy collection install community.kubernetes"
 
-          // ווידוא שקובץ ansible-playbook קיים
-          sh "ls ${VENV_PATH}/bin/ansible-playbook"
+    //       // ווידוא שקובץ ansible-playbook קיים
+    //       sh "ls ${VENV_PATH}/bin/ansible-playbook"
 
-          echo "🚀 Running Ansible playbook..."
-          withEnv(["ANSIBLE_COLLECTIONS_PATH=${VENV_PATH}/collections:/root/.ansible/collections"]) {
-            sh "${VENV_PATH}/bin/ansible-playbook -i ansible/inventory.ini ansible/site.yml"
-          }
-        }
-      }
-    }
+    //       echo "🚀 Running Ansible playbook..."
+    //       withEnv(["ANSIBLE_COLLECTIONS_PATH=${VENV_PATH}/collections:/root/.ansible/collections"]) {
+    //         sh "${VENV_PATH}/bin/ansible-playbook -i ansible/inventory.ini ansible/site.yml"
+    //       }
+    //     }
+    //   }
+    // }
 
     stage('Build Docker Image') {
       steps {
