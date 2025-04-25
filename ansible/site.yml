@@ -2,12 +2,11 @@
   hosts: localhost
   tasks:
     - name: Create namespace
-      k8s_namespace:
+      kubernetes.core.k8s_namespace:
         name: portfolio
         state: present
 
     - name: Deploy Portfolio app to K3s
-      community.kubernetes.k8s:
+      kubernetes.core.k8s:
         state: present
         definition: "{{ lookup('file', '../k8s/deployment.yaml') }}"
-
