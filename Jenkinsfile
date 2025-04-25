@@ -29,12 +29,15 @@ pipeline {
           // Make sure ansible-playbook exists in the venv
           sh "ls ${VENV_PATH}/bin/ansible-playbook"
           
-          // Run the ansible playbook
+          // Run the ansible playbook with KUBECONFIG env var
           echo "🚀 Running Ansible playbook..."
-          sh "${VENV_PATH}/bin/ansible-playbook -i ansible/inventory.ini ansible/site.yml"
+          withEnv(["KUBECONFIG=/home/jenkins/.kube/config"]) {
+            sh "${VENV_PATH}/bin/ansible-playbook -i ansible/inventory.ini ansible/site.yml"
+          }
         }
       }
     }
+
 
     stage('Build Docker Image') {
       steps {
