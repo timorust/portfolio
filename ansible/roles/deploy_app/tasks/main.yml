@@ -8,7 +8,7 @@
 - name: Deploy Portfolio app to K3s
   kubernetes.core.k8s:
     state: present
-    definition: "{{ lookup('file', 'k8s/portfolio-deployment.yaml') | from_yaml }}"
+    definition: "{{ lookup('file', 'k8s/deployment.yaml') | from_yaml }}"
 
 
 - name: Expose service
