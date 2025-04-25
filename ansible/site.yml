@@ -1,10 +1,12 @@
----
-- name: Deploy Portfolio Project with Docker, K3s and Ansible
-  hosts: servers
-  become: true
-  vars:
-    ansible_python_interpreter: /var/lib/jenkins/.ansible-venv/bin/python
-  roles:
-    - docker
-    - k3s
-    - deploy_app
+- name: Deploy Portfolio app to K3s
+  hosts: localhost
+  tasks:
+    - name: Create namespace
+      kubernetes_namespace:
+        name: portfolio
+        state: present
+
+    - name: Deploy Portfolio app to K3s
+      kubernetes:
+        state: present
+        definition: "{{ lookup('file', 'k8s/deployment.yaml') }}"
