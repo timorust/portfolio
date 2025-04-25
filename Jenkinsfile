@@ -31,7 +31,7 @@ pipeline {
           
           // Run the ansible playbook with KUBECONFIG env var
           echo "🚀 Running Ansible playbook..."
-          withEnv(["KUBECONFIG=/home/jenkins/.kube/config"]) {
+          withEnv(["KUBECONFIG=/root/.kube/config"]) {
             sh "${VENV_PATH}/bin/ansible-playbook -i ansible/inventory.ini ansible/site.yml"
           }
         }
