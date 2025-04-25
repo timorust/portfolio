@@ -7,9 +7,9 @@
 
 - name: Deploy Portfolio app to K3s
   kubernetes.core.k8s:
-    kubeconfig: /var/lib/jenkins/.kube/config
     state: present
-    definition: "{{ playbook_dir }}/../../k8s/deployment.yaml"
+    definition: "{{ lookup('file', 'k8s/portfolio-deployment.yaml') | from_yaml }}"
+
 
 - name: Expose service
   kubernetes.core.k8s:
