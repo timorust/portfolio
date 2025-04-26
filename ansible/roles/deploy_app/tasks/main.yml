@@ -1,19 +1,21 @@
-- name: Copy Dockerfile
-  copy:
-    src: /final/portfolio/Dockerfile
-    dest: /tmp/Dockerfile
+- name: Create folder for portfolio website only
+  file:
+    path: /tmp/portfolio
+    state: directory
 
-- name: Copy portfolio HTML, CSS, JS files
-  copy:
+- name: Copy static portfolio files using rsync (excluding sensitive dirs)
+  ansible.builtin.synchronize:
     src: /final/portfolio/
     dest: /tmp/portfolio/
-    mode: 0755
+    rsync_opts:
+      - "--exclude=ansible"
+      - "--exclude=.github"
+      - "--exclude=k8s"
+      - "--exclude=monitoring"
+      - "--exclude=Jenkinsfile"
+      - "--exclude=Dockerfile"
+      - "--exclude=*.yaml"
+      - "--exclude=venv"
+      - "--exclude=__pycache__"
 
-- name: Build Docker image for portfolio
-  community.docker.docker_image:
-    name: my-portfolio
-    tag: latest
-    build:
-      path: /tmp
-      dockerfile: Dockerfile
-    state: present
+
