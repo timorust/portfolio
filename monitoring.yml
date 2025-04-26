@@ -1,14 +1,22 @@
-- name: Deploy monitoring to K3s
+---
+- name: Deploy Prometheus and Grafana to K3s
   hosts: localhost
-  become: yes
-
+  become: false
   tasks:
-    - name: Test kubectl connectivity
-      ansible.builtin.command: kubectl get nodes
-      environment:
-        KUBECONFIG: "/final/portfolio/kubeconfig.yaml"
-      register: kubectl_output
+    - name: Apply Prometheus Deployment
+      kubernetes.core.k8s:
+        kubeconfig: "~/.kube/config"
+        state: present
+        src: "../k8s/prometheus-deployment.yaml"
 
-    - name: Print output
-      ansible.builtin.debug:
-        var: kubectl_output.stdout_lines
+    - name: Apply Grafana Deployment
+      kubernetes.core.k8s:
+        kubeconfig: "~/.kube/config"
+        state: present
+        src: "../k8s/grafana-deployment.yaml"
+
+    - name: Apply Common Service
+      kubernetes.core.k8s:
+        kubeconfig: "~/.kube/config"
+        state: present
+        src: "../k8s/service.yaml"
