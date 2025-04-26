@@ -1,0 +1,66 @@
+.
+├── .github
+│   └── workflows
+│       └── static.yml
+├── .gitignore
+├── Dockerfile
+├── Jenkinsfile
+├── README.md
+├── about.html
+├── ansible
+│   ├── ansible.cfg
+│   ├── inventory.ini
+│   ├── roles
+│   │   ├── deploy_app
+│   │   │   └── tasks
+│   │   │       └── main.yml
+│   │   ├── docker
+│   │   │   └── tasks
+│   │   │       └── main.yml
+│   │   └── k3s
+│   │       └── tasks
+│   │           └── main.yml
+│   └── site.yml
+├── contact.html
+├── education.html
+├── footer.html
+├── img
+│   ├── CV-Tamir_Rustamov.pdf
+│   ├── avatar1.jpg
+│   ├── avatar2.jpg
+│   ├── avatar3.jpg
+│   ├── avatar4.jpg
+│   ├── background-image.jpg
+│   ├── logo.png
+│   ├── myPic.png
+│   ├── profile-about.jpg
+│   ├── profile.jpg
+│   ├── sky.jpg
+│   ├── work1.jpg
+│   ├── work2.jpg
+│   ├── work21.jpg
+│   ├── work22.jpg
+│   └── work3.jpg
+├── index.html
+├── index.js
+├── k8s
+│   ├── deployment.yaml
+│   ├── grafana-deployment.yaml
+│   ├── prometheus-deployment.yaml
+│   └── service.yaml
+├── kubeconfig.yaml
+├── monitoring
+│   ├── grafana
+│   └── prometheus
+│       └── prometheus-config.yaml
+├── monitoring.yml
+├── portfolio-deployment.yaml
+├── portfolio.html
+├── skills.html
+├── skills.js
+├── structure.txt
+├── style.css
+├── testimonials.html
+└── testimonials.js
+
+16 directories, 48 files

@@ -1,33 +1,60 @@
+---
+- name: Remove old versions of Docker
+  apt:
+    name: "{{ item }}"
+    state: absent
+  loop:
+    - docker
+    - docker-engine
+    - docker.io
+    - containerd
+    - runc
+
 - name: Install dependencies
   apt:
-    name: ['apt-transport-https', 'ca-certificates', 'curl', 'software-properties-common', 'gnupg']
+    name: "{{ item }}"
     state: present
     update_cache: yes
+  loop:
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - gnupg
+    - lsb-release
 
-- name: Add Docker’s official GPG key
-  ansible.builtin.shell: |
-    install -m 0755 -d /etc/apt/keyrings
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-    chmod a+r /etc/apt/keyrings/docker.gpg
-  args:
-    creates: /etc/apt/keyrings/docker.gpg
+- name: Create keyrings directory if it doesn't exist
+  file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: '0755'
 
-- name: Set up the Docker repository
-  ansible.builtin.shell: |
-    echo \
-    "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-    $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
-  args:
-    creates: /etc/apt/sources.list.d/docker.list
+- name: Add Docker GPG key to keyring
+  get_url:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    dest: /etc/apt/keyrings/docker.gpg
+    mode: '0644'
 
-- name: Update apt and install Docker
+- name: Add Docker apt repository
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_lsb.codename }} stable"
+    state: present
+    filename: docker
+    update_cache: yes
+
+
+
+- name: Install Docker CE
   apt:
     name: docker-ce
-    state: present
+    state: latest
     update_cache: yes
 
-- name: Enable and start Docker
-  service:
-    name: docker
-    state: started
-    enabled: true
+- name: Install Docker CLI
+  apt:
+    name: docker-ce-cli
+    state: latest
+
+- name: Install containerd
+  apt:
+    name: containerd.io
+    state: latest

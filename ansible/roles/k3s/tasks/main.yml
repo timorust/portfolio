@@ -1,6 +1,11 @@
 ---
-- name: Install K3s
+- name: Install K3s on node
   shell: |
     curl -sfL https://get.k3s.io | sh -
-  args:
-    creates: /etc/rancher/k3s/k3s.yaml
+  become: yes
+
+- name: Copy kubeconfig file for K3s
+  copy:
+    src: /final/portfolio/kubeconfig.yaml
+    dest: /etc/rancher/k3s/k3s.yaml
+  become: yes

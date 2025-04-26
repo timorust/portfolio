@@ -3,38 +3,41 @@ pipeline {
 
   environment {
     IMAGE_NAME = "timor1/portfolio"
+    BUILD_NUMBER = "${BUILD_NUMBER}"
     VENV_PATH = "/var/lib/jenkins/.ansible-venv"
   }
 
   stages {
 
-    // stage('Run Ansible Playbook') {
-    //   steps {
-    //     script {
-    //       echo "🔍 Checking virtual environment..."
-    //       if (!fileExists(VENV_PATH)) {
-    //         echo "🔧 Creating virtual environment..."
-    //         sh "python3 -m venv ${VENV_PATH}"
-    //         sh "${VENV_PATH}/bin/pip install --upgrade pip"
-    //         sh "${VENV_PATH}/bin/pip install ansible"
-    //       } else {
-    //         echo "✅ Virtual environment already exists"
-    //       }
+    stage('Prepare Python Virtual Env') {
+      steps {
+        script {
+          echo "🔧 Preparing Ansible environment..."
+          if (!fileExists(VENV_PATH)) {
+            sh "python3 -m venv ${VENV_PATH}"
+            sh "${VENV_PATH}/bin/pip install --upgrade pip"
+            sh "${VENV_PATH}/bin/pip install ansible kubernetes"
+          } else {
+            echo "✅ Virtual environment already exists"
+          }
 
-    //       // התקנת הקולקשן של Kubernetes (גם אם ה־venv קיים)
-    //       echo "📦 Installing Ansible Kubernetes collection..."
-    //       sh "${VENV_PATH}/bin/ansible-galaxy collection install community.kubernetes"
+          sh "${VENV_PATH}/bin/ansible-galaxy collection install kubernetes.core --force"
+        }
+      }
+    }
 
-    //       // ווידוא שקובץ ansible-playbook קיים
-    //       sh "ls ${VENV_PATH}/bin/ansible-playbook"
-
-    //       echo "🚀 Running Ansible playbook..."
-    //       withEnv(["ANSIBLE_COLLECTIONS_PATH=${VENV_PATH}/collections:/root/.ansible/collections"]) {
-    //         sh "${VENV_PATH}/bin/ansible-playbook -i ansible/inventory.ini ansible/site.yml"
-    //       }
-    //     }
-    //   }
-    // }
+    stage('Run Ansible Playbook') {
+      steps {
+        script {
+          echo "🚀 Running full Ansible playbook..."
+          withEnv(["PATH=${VENV_PATH}/bin:$PATH", "KUBECONFIG=/home/jenkins/.kube/config"]) {
+            dir('ansible') {
+              sh "ansible-playbook -i inventory.ini site.yml"
+            }
+          }
+        }
+      }
+    }
 
     stage('Build Docker Image') {
       steps {
@@ -49,7 +52,7 @@ pipeline {
       steps {
         withCredentials([usernamePassword(credentialsId: 'docker_hub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
           script {
-            echo "📤 Pushing image to Docker Hub..."
+            echo "📤 Pushing Docker image..."
             sh '''
               echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
               docker push $IMAGE_NAME:$BUILD_NUMBER
@@ -59,10 +62,10 @@ pipeline {
       }
     }
 
-    stage('Deploy to Kubernetes') {
+    stage('Deploy Updated Image to K3s') {
       steps {
         script {
-          echo "🚢 Deploying to Kubernetes..."
+          echo "🚢 Updating Deployment image in Kubernetes..."
           withEnv(["KUBECONFIG=/home/jenkins/.kube/config"]) {
             sh "kubectl set image deployment/portfolio-deployment portfolio=${IMAGE_NAME}:${BUILD_NUMBER} --record"
           }
@@ -73,13 +76,13 @@ pipeline {
 
   post {
     success {
-      echo "✅ Pipeline succeeded! Deployed version ${BUILD_NUMBER} to Kubernetes."
+      echo "✅ Pipeline completed successfully! App deployed to K3s."
     }
     failure {
-      echo "❌ Pipeline failed. Check logs for details."
+      echo "❌ Pipeline failed. Check logs."
     }
     always {
-      echo "📋 Pipeline finished (success or fail)."
+      echo "📋 Pipeline finished (success or failure)."
     }
   }
 }
