@@ -6,3 +6,19 @@
     - docker
     - deploy_app
     - k3s
+
+  tasks:
+    - name: Build Docker image for portfolio
+      docker_image:
+        build:
+          path: /tmp/portfolio
+        name: portfolio-app
+        tag: latest
+
+    - name: Run Docker container for portfolio app
+      docker_container:
+        name: portfolio-container
+        image: portfolio-app:latest
+        state: started
+        ports:
+          - "80:80"
