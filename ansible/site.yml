@@ -9,16 +9,19 @@
 
   tasks:
     - name: Build Docker image for portfolio
-      docker_image:
+      community.docker.docker_image:
+        name: my-portfolio
+        tag: latest
         build:
           path: /tmp/portfolio
-        name: portfolio-app
-        tag: latest
+          dockerfile: Dockerfile
+        source: build
+        state: present
 
     - name: Run Docker container for portfolio app
       docker_container:
         name: portfolio-container
-        image: portfolio-app:latest
+        image: my-portfolio:latest
         state: started
         ports:
           - "80:80"
