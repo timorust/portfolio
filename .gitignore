@@ -30,9 +30,13 @@ k8s/*.yaml
 *.key
 *.env
 
-# Ignore Terraform files
+# Terraform
+*.tfstate
+*.tfstate.backup
 .terraform/
-
+terraform.tfvars
 # Ignore temporary OS files
 *.swp
 *.swo
+kubeconfig.yaml
+terraform.tfvars
