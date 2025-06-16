@@ -1,18 +1,5 @@
-resource "aws_s3_object" "site_files" {  
-  for_each = fileset("${path.module}/../../", "**/*.html")  
-  bucket   = aws_s3_bucket.static_site.bucket  
-  key      = each.value  
-  source   = "${path.module}/../../${each.value}"  
-  content_type = "text/html"  
-  acl     = "public-read"  
-}  
-
 resource "aws_s3_bucket" "static_site" {
   bucket = var.bucket_name
-  website {
-    index_document = var.index_document
-    error_document = var.error_document
-  }
 
   tags = {
     Name = "StaticSite"
@@ -20,7 +7,7 @@ resource "aws_s3_bucket" "static_site" {
 }
 
 resource "aws_s3_bucket_public_access_block" "public_access" {
-  bucket = aws_s3_bucket.static_site.id
+  bucket                  = aws_s3_bucket.static_site.id
   block_public_acls       = false
   block_public_policy     = false
   ignore_public_acls      = false
@@ -33,10 +20,10 @@ resource "aws_s3_bucket_policy" "site_policy" {
   policy = jsonencode({
     Version = "2012-10-17",
     Statement = [{
-      Effect = "Allow",
+      Effect    = "Allow",
       Principal = "*",
-      Action = "s3:GetObject",
-      Resource = "${aws_s3_bucket.static_site.arn}/*"
+      Action    = "s3:GetObject",
+      Resource  = "${aws_s3_bucket.static_site.arn}/*"
     }]
   })
 }
@@ -53,6 +40,15 @@ resource "aws_s3_bucket_website_configuration" "website" {
   }
 }
 
+resource "aws_s3_object" "site_files" {
+  for_each = fileset("${path.module}/../../", "**/*.html")
+  bucket   = aws_s3_bucket.static_site.bucket
+  key      = each.value
+  source   = "${path.module}/../../${each.value}"
+  content_type = "text/html"
+  acl      = "public-read"
+}
+
 output "website_url" {
-  value = aws_s3_bucket.static_site.website_endpoint
+  value = aws_s3_bucket_website_configuration.website.website_endpoint
 }
