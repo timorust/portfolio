@@ -1,3 +1,12 @@
+resource "aws_s3_object" "site_files" {  
+  for_each = fileset("${path.module}/../../", "**/*.html")  
+  bucket   = aws_s3_bucket.static_site.bucket  
+  key      = each.value  
+  source   = "${path.module}/../../${each.value}"  
+  content_type = "text/html"  
+  acl     = "public-read"  
+}  
+
 resource "aws_s3_bucket" "static_site" {
   bucket = var.bucket_name
   website {
