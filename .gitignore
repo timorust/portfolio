@@ -35,6 +35,8 @@ k8s/*.yaml
 *.tfstate.backup
 .terraform/
 terraform.tfvars
+# Allow lock file
+!.terraform.lock.hcl
 # Ignore temporary OS files
 *.swp
 *.swo

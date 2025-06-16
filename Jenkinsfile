@@ -72,6 +72,16 @@ pipeline {
         }
       }
     }
+
+    stage('Deploy to AWS S3 via Terraform') {
+    steps {
+        dir('terraform-project') {
+            sh 'terraform init'
+            sh 'terraform apply -auto-approve'
+        }
+    }
+}
+
   }
 
   post {
